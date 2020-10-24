@@ -6,11 +6,12 @@ import inquirer from 'inquirer';
 
 //Dependencies
 const mysql = require('mysql');
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 
 //Create the connection on localhost
 var connection = mysql.createConnection({
     host:"localhost",
+    //host:"127.0.0.1",
     port: 3306,
     user:"root",
     password:"T)UW%#T_$()qwr-a)jsrtg0-",
@@ -41,13 +42,14 @@ var start = function(){
         message: "Would you like to [POST] an auction or [BID] on an auction?",
         choices:["POST","BID"]
     }).then(function(answer){
-        if(answer.postOrBid.toUpperCase()=="POST"{
+        if(answer.postOrBid.toUpperCase()=="POST"){
             postAuction();
         } else {
             //bidAuction();
         }
     })
 }
+//++
 
 //POST Auction Function
 var postAuction = function(){
@@ -62,15 +64,23 @@ var postAuction = function(){
     },{
         name:"startingBid",
         type:"input",
-        message:"What would you like the starting bid to be?"
+        message:"What would you like the starting bid to be?",
         validate: function(value){
-            if(isNan(value)==false){
+            if(isNaN(value)==false){
                 return true;
             } else {
                 return false;
             }
         }
     }]).then(function(answer){
-        
+        connection.query("INSERT INTO auction SET ?", {
+            itemname:answer.item,
+            category:answer.category,
+            startingbid:answer.startingBid,
+            highestbid:answer.startingBid
+        },function(err,res){
+            console.log("Your auction was created successfully!");
+            start();
+        })
     })
 }
