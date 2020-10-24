@@ -116,13 +116,19 @@ var bidAuction = function(){
                             }
                         }
                     }).then(function(answer){
-                        if(chosenItem.highestbid < parseInt(answer
-                            .bid)){
-                            connection.query(`UPDATE auctions SET 
-                                ? WHERE ?`,[{
-                                    highestbid: 
-                                }])
-                        }
+                        if(chosenItem.highestbid < parseInt(answer.bid)){
+                            connection.query("UPDATE auctions SET ? WHERE ?",[{
+                                highestbid: answer.bid
+                                },{
+                                    id:chosenItem.id
+                                }], function(err,res){
+                                    console.log("Bid succesfully placed!");
+                                    start();
+                                });
+                            } else {
+                                console.log("Your bid was too low. Try again...");
+                                start();
+                            }        
                     })
                 }
             }
@@ -130,4 +136,6 @@ var bidAuction = function(){
     })
 }
 
+///*
 start();
+//*/
