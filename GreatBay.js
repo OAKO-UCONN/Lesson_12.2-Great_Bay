@@ -42,9 +42,35 @@ var start = function(){
         choices:["POST","BID"]
     }).then(function(answer){
         if(answer.postOrBid.toUpperCase()=="POST"{
-            //postAuction();
+            postAuction();
         } else {
             //bidAuction();
         }
+    })
+}
+
+//POST Auction Function
+var postAuction = function(){
+    inquirer.prompt([{
+        name:"item",
+        type:"input",
+        message:"What is the item you wish to submit?"
+    },{
+        name:"category",
+        type:"input",
+        message:"What category would you like to place it in?"
+    },{
+        name:"startingBid",
+        type:"input",
+        message:"What would you like the starting bid to be?"
+        validate: function(value){
+            if(isNan(value)==false){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }]).then(function(answer){
+        
     })
 }
