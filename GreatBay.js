@@ -5,8 +5,8 @@ import inquirer from 'inquirer';
 */
 
 //Dependencies
-const mysql = require('mysql');
-const inquirer = require('inquirer');
+var mysql = require('mysql');
+var inquirer = require('inquirer');
 
 //Create the connection on localhost
 var connection = mysql.createConnection({
@@ -73,7 +73,7 @@ var postAuction = function(){
             }
         }
     }]).then(function(answer){
-        connection.query("INSERT INTO auction SET ?", {
+        connection.query("INSERT INTO auctions SET ?", {
             itemname:answer.item,
             category:answer.category,
             startingbid:answer.startingBid,
@@ -84,3 +84,5 @@ var postAuction = function(){
         })
     })
 }
+
+start();
