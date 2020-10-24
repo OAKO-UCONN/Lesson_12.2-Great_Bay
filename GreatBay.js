@@ -34,3 +34,17 @@ connection.connect(function(err){
 })
 
 //Start
+var start = function(){
+    inquirer.prompt({
+        name:"postOrBid",
+        type: "rawlist",
+        message: "Would you like to [POST] an auction or [BID] on an auction?",
+        choices:["POST","BID"]
+    }).then(function(answer){
+        if(answer.postOrBid.toUpperCase()=="POST"{
+            //postAuction();
+        } else {
+            //bidAuction();
+        }
+    })
+}
