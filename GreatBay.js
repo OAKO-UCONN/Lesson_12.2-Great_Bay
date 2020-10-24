@@ -30,5 +30,5 @@ var connection = mysql.createConnection({
 
 //Console log the connection
 connection.connect(function(err){
-    console.log("Connected as id")
+    console.log("Connected as id"+connection.threadId);
 })
